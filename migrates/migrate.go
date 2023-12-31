@@ -7,11 +7,10 @@ import (
 )
 
 func init() {
-	initenv.LoadEnv()
+	initenv.LoadEnv("../.env")
 	db.ConnectDB()
 }
 
 func main() {
-
 	db.DB.AutoMigrate(&models.Users{})
 }
