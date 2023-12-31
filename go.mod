@@ -29,7 +29,7 @@ require (
 	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/kawojue/gin-gologger v0.0.0-20231231133444-5a14601c9001 // indirect
-	github.com/kawojue/init-env v0.0.0-20231231102223-57b79d794759 // indirect
+	github.com/kawojue/init-env v0.0.0-20231231194624-484a3a11c4fb // indirect
 	github.com/klauspost/cpuid/v2 v2.2.6 // indirect
 	github.com/leodido/go-urn v1.2.4 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
