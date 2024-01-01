@@ -8,6 +8,7 @@ import (
 	"github.com/kawojue/go-auth/db"
 	"github.com/kawojue/go-auth/helpers"
 	"github.com/kawojue/go-auth/models"
+	"github.com/kawojue/go-auth/utils"
 	gobcrypt "github.com/kawojue/go-bcrypt"
 	"gorm.io/gorm"
 )
@@ -26,7 +27,7 @@ func SignUp(ctx *gin.Context) {
 	)
 
 	if err = ctx.ShouldBindJSON(&signUpBody); err != nil {
-		helpers.SendError(ctx, http.StatusBadRequest, err.Error())
+		helpers.SendError(ctx, http.StatusBadRequest, "Invalid request body.")
 		return
 	}
 
@@ -46,6 +47,16 @@ func SignUp(ctx *gin.Context) {
 
 	if len([]byte(password)) < 8 {
 		helpers.SendError(ctx, http.StatusBadRequest, "Password should be at least 8 characters.")
+		return
+	}
+
+	if !utils.UsernameRegex.MatchString(username) {
+		helpers.SendError(ctx, http.StatusBadRequest, "Invalid Username")
+		return
+	}
+
+	if !utils.EmailRegex.MatchString(email) {
+		helpers.SendError(ctx, http.StatusBadRequest, "Invalid Email.")
 		return
 	}
 
@@ -77,6 +88,45 @@ func SignUp(ctx *gin.Context) {
 	})
 }
 
+type LoginBody struct {
+	UserId   string `json:"userId"`
+	Password string `json:"password"`
+}
+
 func Login(ctx *gin.Context) {
+	var (
+		err            error
+		recNotFoundErr error
+		user           models.Users
+		body           LoginBody
+		userId         string = strings.ToLower(strings.TrimSpace(body.UserId))
+	)
+
+	if err = ctx.ShouldBindJSON(&body); err != nil {
+		helpers.SendError(ctx, http.StatusBadRequest, "Invalid request body.")
+		return
+	}
+
+	if len(body.Password) == 0 || len(userId) == 0 {
+		helpers.SendError(ctx, http.StatusBadRequest, "All fields are required.")
+		return
+	}
+
+	if utils.EmailRegex.MatchString(userId) {
+		recNotFoundErr = db.DB.Where("email = ?", userId).First(&user).Error
+	} else {
+		recNotFoundErr = db.DB.Where("username = ?", userId).First(&user).Error
+	}
+
+	if recNotFoundErr == gorm.ErrRecordNotFound {
+		helpers.SendError(ctx, http.StatusNotFound, "Invalid username or password.")
+		return
+	}
+
+	isMatch := gobcrypt.VerifyPassword(user.Password, body.Password)
+	if !isMatch {
+		helpers.SendError(ctx, http.StatusUnauthorized, "Incorrect password.")
+		return
+	}
 
 }
