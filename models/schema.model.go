@@ -12,5 +12,5 @@ type Users struct {
 	Username  string    `gorm:"uniqueIndex"`
 	Password  string
 	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP"`
-	UpdatedAt time.Time `gorm:"default:autoUpdateTime"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime"`
 }
