@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	gologger "github.com/kawojue/gin-gologger"
 	"github.com/kawojue/go-auth/db"
+	"github.com/kawojue/go-auth/routes"
 	initenv "github.com/kawojue/init-env"
 )
 
@@ -29,13 +30,15 @@ func main() {
 		AllowMethods:     []string{"GET", "POST"},
 	}))
 
-	router.Use(gologger.Logger("dev"))
+	router.Use(gologger.Logger(gin.ReleaseMode))
 
 	router.GET("/", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
 			"message": "Go Auth",
 		})
 	})
+
+	routes.ApiRoutes(router)
 
 	router.Run(fmt.Sprintf(":%s", PORT))
 }

@@ -63,6 +63,8 @@ github.com/json-iterator/go v1.1.12 h1:PV8peI4a0ysnczrg+LtxykD8LfKY9ML6u2jnxaEnr
 github.com/json-iterator/go v1.1.12/go.mod h1:e30LSqwooZae/UwlEbR2852Gd8hjQvJoHmT4TnhNGBo=
 github.com/kawojue/gin-gologger v0.0.0-20231231133444-5a14601c9001 h1:wRR3J5rpmn0J8KPkt6aDj3E7QVhmJ0+r30S5jLfT988=
 github.com/kawojue/gin-gologger v0.0.0-20231231133444-5a14601c9001/go.mod h1:uvYu5yEX1McEQGVy0J1v3VQYZY4d9ogy2i/E1SZV+68=
+github.com/kawojue/go-bcrypt v0.0.0-20240101014640-4ad584512434 h1:YdM2nOehers01IZXix9CMksycqv6RqmzLR9/32PwE6w=
+github.com/kawojue/go-bcrypt v0.0.0-20240101014640-4ad584512434/go.mod h1:+wCqQKStDmLjbQSJhwjmfM+zc2QFwjnIm2g51cAX65I=
 github.com/kawojue/init-env v0.0.0-20231231194624-484a3a11c4fb h1:x6RhJCCM+4rqWxFWXasbcfgdrD2DmsqFoRUTxHVqjuM=
 github.com/kawojue/init-env v0.0.0-20231231194624-484a3a11c4fb/go.mod h1:Ck7s521fGhAfK3W7PYAq8ved5l7b2XtptElM9BXpLNQ=
 github.com/klauspost/cpuid/v2 v2.0.9/go.mod h1:FInQzS24/EEf25PyTYn52gqo7WaD8xa0213Md/qVLRg=
