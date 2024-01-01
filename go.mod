@@ -28,7 +28,7 @@ require (
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
-	github.com/kawojue/gin-gologger v0.0.0-20231231133444-5a14601c9001 // indirect
+	github.com/kawojue/gin-gologger v0.0.0-20240101025620-66ce4de213e3 // indirect
 	github.com/kawojue/go-bcrypt v0.0.0-20240101014640-4ad584512434 // indirect
 	github.com/kawojue/init-env v0.0.0-20231231194624-484a3a11c4fb // indirect
 	github.com/klauspost/cpuid/v2 v2.2.6 // indirect
