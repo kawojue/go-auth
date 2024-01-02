@@ -9,5 +9,6 @@ func ApiRoutes(router *gin.Engine) {
 	api := router.Group("/api")
 	{
 		api.POST("/signup", controllers.SignUp)
+		api.POST("/login", controllers.Login)
 	}
 }
