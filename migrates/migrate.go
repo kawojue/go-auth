@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/kawojue/go-auth/db"
 	"github.com/kawojue/go-auth/models"
-	initenv "github.com/kawojue/init-env"
+	initenv "github.com/kawojue/go-initenv"
 )
 
 func init() {

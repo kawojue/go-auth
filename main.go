@@ -9,7 +9,7 @@ import (
 	gologger "github.com/kawojue/gin-gologger"
 	"github.com/kawojue/go-auth/db"
 	"github.com/kawojue/go-auth/routes"
-	initenv "github.com/kawojue/init-env"
+	initenv "github.com/kawojue/go-initenv"
 )
 
 func init() {
@@ -27,7 +27,7 @@ func main() {
 	router.Use(cors.New(cors.Config{
 		AllowCredentials: true,
 		AllowOrigins:     []string{"*"},
-		AllowMethods:     []string{"GET", "POST"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
 	}))
 
 	router.Use(gologger.Logger(gin.ReleaseMode))

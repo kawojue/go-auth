@@ -1,7 +1,7 @@
 package db
 
 import (
-	initenv "github.com/kawojue/init-env"
+	initenv "github.com/kawojue/go-initenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
