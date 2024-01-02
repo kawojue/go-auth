@@ -69,8 +69,8 @@ github.com/kawojue/go-bcrypt v0.0.0-20240101220751-eeba593cfcb3 h1:/Bxnf1slOVB4D
 github.com/kawojue/go-bcrypt v0.0.0-20240101220751-eeba593cfcb3/go.mod h1:+wCqQKStDmLjbQSJhwjmfM+zc2QFwjnIm2g51cAX65I=
 github.com/kawojue/go-hexbyte v0.0.0-20240102003121-7cb19ba762f6 h1:1IBZQHMEf2DTMRJ2pwyd+0La/8o41nawBc43n8qcep0=
 github.com/kawojue/go-hexbyte v0.0.0-20240102003121-7cb19ba762f6/go.mod h1:c0u1FX8wbi8aRHLZND66W3uVFm+E+rtpJGlGvbtsMYU=
-github.com/kawojue/init-env v0.0.0-20231231194624-484a3a11c4fb h1:x6RhJCCM+4rqWxFWXasbcfgdrD2DmsqFoRUTxHVqjuM=
-github.com/kawojue/init-env v0.0.0-20231231194624-484a3a11c4fb/go.mod h1:Ck7s521fGhAfK3W7PYAq8ved5l7b2XtptElM9BXpLNQ=
+github.com/kawojue/go-initenv v0.0.0-20240102210028-202e49145870 h1:+4GziPXcz59iKMFPlxrhfbiQAMLe1Ve3QSnHQNGkq80=
+github.com/kawojue/go-initenv v0.0.0-20240102210028-202e49145870/go.mod h1:lgjloyZmamfzieh0dJLKofCJMh/1K7e71bKPH+nUz5E=
 github.com/klauspost/cpuid/v2 v2.0.9/go.mod h1:FInQzS24/EEf25PyTYn52gqo7WaD8xa0213Md/qVLRg=
 github.com/klauspost/cpuid/v2 v2.2.6 h1:ndNyv040zDGIDh8thGkXYjnFtiN02M1PVVF+JE/48xc=
 github.com/klauspost/cpuid/v2 v2.2.6/go.mod h1:Lcz8mBdAVJIBVzewtcLocK12l3Y+JytZYpaMropDUws=
