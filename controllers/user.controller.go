@@ -33,20 +33,15 @@ func SignUp(ctx *gin.Context) {
 
 	password := signUpBody.Password
 	email := strings.TrimSpace(signUpBody.Email)
-	username := strings.ToLower(strings.TrimSpace(signUpBody.Email))
+	username := strings.ToLower(strings.TrimSpace(signUpBody.Username))
 
 	if len(password) == 0 || len(email) == 0 || len(username) == 0 {
 		helpers.SendError(ctx, http.StatusBadRequest, "All fields are required.")
 		return
 	}
 
-	if len([]byte(password)) > 72 {
-		helpers.SendError(ctx, http.StatusBadRequest, "Password should be at most 72 characters.")
-		return
-	}
-
-	if len([]byte(password)) < 8 {
-		helpers.SendError(ctx, http.StatusBadRequest, "Password should be at least 8 characters.")
+	if len([]byte(password)) > 72 || len([]byte(password)) < 8 {
+		helpers.SendError(ctx, http.StatusBadRequest, "Password is too short or too long.")
 		return
 	}
 
