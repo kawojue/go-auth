@@ -29,7 +29,8 @@ require (
 	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/kawojue/gin-gologger v0.0.0-20240101025620-66ce4de213e3 // indirect
-	github.com/kawojue/go-bcrypt v0.0.0-20240101014640-4ad584512434 // indirect
+	github.com/kawojue/go-bcrypt v0.0.0-20240101220751-eeba593cfcb3 // indirect
+	github.com/kawojue/go-hexbyte v0.0.0-20240102003121-7cb19ba762f6 // indirect
 	github.com/kawojue/init-env v0.0.0-20231231194624-484a3a11c4fb // indirect
 	github.com/klauspost/cpuid/v2 v2.2.6 // indirect
 	github.com/leodido/go-urn v1.2.4 // indirect
