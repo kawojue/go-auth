@@ -13,5 +13,5 @@ type Users struct {
 	Password     string
 	CreatedAt    time.Time `gorm:"default:CURRENT_TIMESTAMP"`
 	UpdatedAt    time.Time `gorm:"autoUpdateTime"`
-	RefreshToken []byte    `gorm:"type:bytea"`
+	RefreshToken string
 }
