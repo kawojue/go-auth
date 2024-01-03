@@ -79,7 +79,6 @@ func SignUp(ctx *gin.Context) {
 func Login(ctx *gin.Context) {
 	var (
 		err            error
-		recNotFoundErr error
 		user           models.Users
 		body           structs.Login
 	)
@@ -97,12 +96,12 @@ func Login(ctx *gin.Context) {
 	}
 
 	if utils.EmailRegex.MatchString(userId) {
-		if recNotFoundErr = db.DB.Where("email = ?", userId).First(&user).Error; recNotFoundErr != nil {
+		if err = db.DB.Where("email = ?", userId).First(&user).Error; err != nil {
 			helpers.SendError(ctx, http.StatusNotFound, "Invalid email or password.")
 			return
 		}
 	} else {
-		if recNotFoundErr = db.DB.Where("username = ?", userId).First(&user).Error; recNotFoundErr != nil {
+		if err = db.DB.Where("username = ?", userId).First(&user).Error; err != nil {
 			helpers.SendError(ctx, http.StatusNotFound, "Invalid username or password.")
 			return
 		}
