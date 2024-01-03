@@ -2,8 +2,9 @@ package helpers
 
 import "github.com/gin-gonic/gin"
 
-func SendSuccess(ctx *gin.Context, statusCode int, data interface{}) {
+func SendSuccess(ctx *gin.Context, statusCode int, msg string, data interface{}) {
 	ctx.JSON(statusCode, gin.H{
+		"msg":     msg,
 		"success": true,
 		"data":    data,
 	})
