@@ -52,7 +52,7 @@ func RefreshToken(ctx *gin.Context) {
 		return
 	}
 
-	ctx.SetCookie("access_token", access_token, int(time.Until(access_token_exp)), "/", "localhost", false, true)
+	ctx.SetCookie("access_token", access_token, int(time.Until(access_token_exp).Seconds()), "/", "localhost", false, true)
 
 	helpers.SendSuccess(ctx, http.StatusOK, "Access token generated.", nil)
 }
