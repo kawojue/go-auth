@@ -8,32 +8,27 @@ import (
 	"github.com/kawojue/go-auth/db"
 	"github.com/kawojue/go-auth/helpers"
 	"github.com/kawojue/go-auth/models"
+	"github.com/kawojue/go-auth/structs"
 	"github.com/kawojue/go-auth/utils"
 	gobcrypt "github.com/kawojue/go-bcrypt"
 	"gorm.io/gorm"
 )
 
-type SignUpBody struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
-	Username string `json:"username"`
-}
-
 func SignUp(ctx *gin.Context) {
 	var (
-		err        error
-		signUpBody SignUpBody
-		user       models.Users
+		err  error
+		body structs.SignUp
+		user models.Users
 	)
 
-	if err = ctx.ShouldBindJSON(&signUpBody); err != nil {
+	if err = ctx.ShouldBindJSON(&body); err != nil {
 		helpers.SendError(ctx, http.StatusBadRequest, "Invalid request body.")
 		return
 	}
 
-	password := signUpBody.Password
-	email := strings.TrimSpace(signUpBody.Email)
-	username := strings.ToLower(strings.TrimSpace(signUpBody.Username))
+	password := body.Password
+	email := strings.TrimSpace(body.Email)
+	username := strings.ToLower(strings.TrimSpace(body.Username))
 
 	if len(password) == 0 || len(email) == 0 || len(username) == 0 {
 		helpers.SendError(ctx, http.StatusBadRequest, "All fields are required.")
@@ -78,14 +73,7 @@ func SignUp(ctx *gin.Context) {
 		return
 	}
 
-	helpers.SendSuccess(ctx, http.StatusOK, map[string]string{
-		"msg": "Account has been created successfully.",
-	})
-}
-
-type LoginBody struct {
-	UserId   string `json:"userId"`
-	Password string `json:"password"`
+	helpers.SendSuccess(ctx, http.StatusOK, "Account has been created successfully.", nil)
 }
 
 func Login(ctx *gin.Context) {
@@ -93,8 +81,7 @@ func Login(ctx *gin.Context) {
 		err            error
 		recNotFoundErr error
 		user           models.Users
-		body           LoginBody
-		userId         string = strings.ToLower(strings.TrimSpace(body.UserId))
+		body           structs.Login
 	)
 
 	if err = ctx.ShouldBindJSON(&body); err != nil {
@@ -102,20 +89,23 @@ func Login(ctx *gin.Context) {
 		return
 	}
 
+	var userId string = strings.ToLower(strings.TrimSpace(body.UserId))
+
 	if len(body.Password) == 0 || len(userId) == 0 {
 		helpers.SendError(ctx, http.StatusBadRequest, "All fields are required.")
 		return
 	}
 
 	if utils.EmailRegex.MatchString(userId) {
-		recNotFoundErr = db.DB.Where("email = ?", userId).First(&user).Error
+		if recNotFoundErr = db.DB.Where("email = ?", userId).First(&user).Error; recNotFoundErr != nil {
+			helpers.SendError(ctx, http.StatusNotFound, "Invalid email or password.")
+			return
+		}
 	} else {
-		recNotFoundErr = db.DB.Where("username = ?", userId).First(&user).Error
-	}
-
-	if recNotFoundErr == gorm.ErrRecordNotFound {
-		helpers.SendError(ctx, http.StatusNotFound, "Invalid username or password.")
-		return
+		if recNotFoundErr = db.DB.Where("username = ?", userId).First(&user).Error; recNotFoundErr != nil {
+			helpers.SendError(ctx, http.StatusNotFound, "Invalid username or password.")
+			return
+		}
 	}
 
 	isMatch := gobcrypt.VerifyPassword(user.Password, body.Password)
@@ -124,4 +114,7 @@ func Login(ctx *gin.Context) {
 		return
 	}
 
+	utils.GenTokens(ctx, user.Username)
+
+	helpers.SendSuccess(ctx, http.StatusOK, "Login successful.", nil)
 }
