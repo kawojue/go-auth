@@ -38,7 +38,7 @@ func main() {
 		})
 	})
 
-	routes.ApiRoutes(router)
+	routes.AuthRoutes(router)
 
 	router.Run(fmt.Sprintf(":%s", PORT))
 }
