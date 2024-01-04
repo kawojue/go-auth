@@ -37,6 +37,7 @@ func RefreshToken(ctx *gin.Context) {
 
 	access_token_exp := time.Now().Add(1 * time.Hour)
 	access_token_claims := &structs.Claims{
+		ID:       claims.ID,
 		Username: claims.Username,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: access_token_exp.Unix(),
