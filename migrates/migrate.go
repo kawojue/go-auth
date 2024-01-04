@@ -13,4 +13,5 @@ func init() {
 
 func main() {
 	db.DB.AutoMigrate(&models.Users{})
+	db.DB.AutoMigrate(&models.TOTP{})
 }
