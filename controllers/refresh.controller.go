@@ -11,8 +11,6 @@ import (
 	"github.com/kawojue/go-initenv"
 )
 
-// on it
-
 var secretKey []byte = []byte(initenv.GetEnv("JWT_SECRET", ""))
 
 func RefreshToken(ctx *gin.Context) {
