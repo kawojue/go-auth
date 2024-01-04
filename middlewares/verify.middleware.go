@@ -37,6 +37,7 @@ func VerifyAuth() gin.HandlerFunc {
 			return
 		}
 
+		ctx.Set("user_id", claims.ID)
 		ctx.Set("username", claims.Username)
 
 		ctx.Next()
