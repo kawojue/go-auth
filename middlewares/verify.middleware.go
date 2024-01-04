@@ -33,7 +33,7 @@ func VerifyAuth() gin.HandlerFunc {
 		}
 
 		claims, ok := token.Claims.(*structs.Claims)
-		if !ok || !token.Valid || int64(time.Now().Unix()) > claims.ExpiresAt {
+		if !ok || !token.Valid || time.Now().Unix() > claims.ExpiresAt {
 			helpers.SendError(ctx, http.StatusForbidden, "Access denied.")
 			return
 		}
