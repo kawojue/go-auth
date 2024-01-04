@@ -15,6 +15,15 @@ type Users struct {
 	UpdatedAt    time.Time `gorm:"autoUpdateTime"`
 	RefreshToken string
 	TOTP         TOTP `gorm:"foreignKey:UserID"`
+	Info         Info `gorm:"foreignKey:UserID"`
+}
+
+type Info struct {
+	ID        uuid.UUID `gorm:"primaryKey;type:uuid;default:uuid_generator_v4()"`
+	FirstName string
+	LastName  string
+	Age       int
+	UserID    uuid.UUID `gorm:"type:uuid;uniqueIndex"`
 }
 
 type TOTP struct {
