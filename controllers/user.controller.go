@@ -78,9 +78,9 @@ func SignUp(ctx *gin.Context) {
 
 func Login(ctx *gin.Context) {
 	var (
-		err            error
-		user           models.Users
-		body           structs.Login
+		err  error
+		user models.Users
+		body structs.Login
 	)
 
 	if err = ctx.ShouldBindJSON(&body); err != nil {
@@ -113,7 +113,7 @@ func Login(ctx *gin.Context) {
 		return
 	}
 
-	utils.GenTokens(ctx, user.Username)
+	utils.GenTokens(ctx, user.Username, user.ID.String())
 
 	helpers.SendSuccess(ctx, http.StatusOK, "Login successful.", nil)
 }
