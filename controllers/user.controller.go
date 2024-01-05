@@ -122,20 +122,22 @@ func clearCookies(ctx *gin.Context, cookieNames []string) {
 	for _, cookieName := range cookieNames {
 		ctx.SetCookie(cookieName, "", -1, "/", "localhost", false, true)
 	}
+	ctx.Status(http.StatusNoContent)
 }
 
 func Logout(ctx *gin.Context) {
 	refresh_token, err := ctx.Cookie("refresh_token")
 	if err != nil {
-		helpers.SendError(ctx, http.StatusNoContent, "Something went wrong.")
+		ctx.Status(http.StatusNoContent)
 		return
 	}
+
+	cookieNames := []string{"refresh_token", "access_token"}
 
 	if err := db.DB.Model(&models.Users{}).Where("refresh_token = ?", refresh_token).Update("refresh_token", "").Error; err != nil {
-		helpers.SendError(ctx, http.StatusNoContent, "Something went wrong.")
+		clearCookies(ctx, cookieNames)
 		return
 	}
 
-	clearCookies(ctx, []string{"refresh_token", "access_token"})
-	helpers.SendSuccess(ctx, http.StatusNoContent, "", nil)
+	clearCookies(ctx, cookieNames)
 }
