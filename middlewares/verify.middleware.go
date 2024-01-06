@@ -11,9 +11,9 @@ import (
 	initenv "github.com/kawojue/go-initenv"
 )
 
-var secretKey []byte = []byte(initenv.GetEnv("JWT_SECRET", ""))
-
 func VerifyAuth() gin.HandlerFunc {
+	secretKey := []byte(initenv.GetEnv("JWT_SECRET", ""))
+
 	return func(ctx *gin.Context) {
 		access_token, err := ctx.Cookie("access_token")
 		if err != nil {
