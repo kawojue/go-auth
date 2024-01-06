@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/kawojue/go-auth/db"
+	"github.com/kawojue/go-auth/configs"
 	"github.com/kawojue/go-auth/helpers"
 	"github.com/kawojue/go-auth/models"
 	"github.com/kawojue/go-auth/structs"
@@ -50,12 +50,12 @@ func SignUp(ctx *gin.Context) {
 		return
 	}
 
-	if err = db.DB.Where("email = ?", email).First(&user).Error; err != gorm.ErrRecordNotFound {
+	if err = configs.DB.Where("email = ?", email).First(&user).Error; err != gorm.ErrRecordNotFound {
 		helpers.SendError(ctx, http.StatusConflict, "Email already exists.")
 		return
 	}
 
-	if err = db.DB.Where("username = ?", username).First(&user).Error; err != gorm.ErrRecordNotFound {
+	if err = configs.DB.Where("username = ?", username).First(&user).Error; err != gorm.ErrRecordNotFound {
 		helpers.SendError(ctx, http.StatusBadRequest, "Username already exists.")
 		return
 	}
@@ -68,7 +68,7 @@ func SignUp(ctx *gin.Context) {
 		Username: username,
 	}
 
-	if err = db.DB.Create(&user).Error; err != nil {
+	if err = configs.DB.Create(&user).Error; err != nil {
 		helpers.SendError(ctx, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -96,18 +96,18 @@ func Login(ctx *gin.Context) {
 	}
 
 	if utils.EmailRegex.MatchString(userId) {
-		if err = db.DB.Where("email = ?", userId).First(&user).Error; err != nil {
+		if err = configs.DB.Where("email = ?", userId).First(&user).Error; err != nil {
 			helpers.SendError(ctx, http.StatusNotFound, "Invalid email or password.")
 			return
 		}
 	} else {
-		if err = db.DB.Where("username = ?", userId).First(&user).Error; err != nil {
+		if err = configs.DB.Where("username = ?", userId).First(&user).Error; err != nil {
 			helpers.SendError(ctx, http.StatusNotFound, "Invalid username or password.")
 			return
 		}
 	}
 
-	isMatch := gobcrypt.VerifyPassword(user.Password, body.Password)
+	isMatch := gobcrypt.CompareHashAndPassword(user.Password, body.Password)
 	if !isMatch {
 		helpers.SendError(ctx, http.StatusUnauthorized, "Incorrect password.")
 		return
@@ -134,7 +134,7 @@ func Logout(ctx *gin.Context) {
 
 	cookieNames := []string{"refresh_token", "access_token"}
 
-	if err := db.DB.Model(&models.Users{}).Where("refresh_token = ?", refresh_token).Update("refresh_token", "").Error; err != nil {
+	if err := configs.DB.Model(&models.Users{}).Where("refresh_token = ?", refresh_token).Update("refresh_token", "").Error; err != nil {
 		clearCookies(ctx, cookieNames)
 		return
 	}

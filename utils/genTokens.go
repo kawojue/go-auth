@@ -6,7 +6,7 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"github.com/kawojue/go-auth/db"
+	"github.com/kawojue/go-auth/configs"
 	"github.com/kawojue/go-auth/helpers"
 	"github.com/kawojue/go-auth/models"
 	"github.com/kawojue/go-auth/structs"
@@ -46,7 +46,7 @@ func GenTokens(ctx *gin.Context, username string, id string) {
 		return
 	}
 
-	if err := db.DB.Model(&models.Users{}).Where("username = ?", username).Update("refresh_token", refresh_token).Error; err != nil {
+	if err := configs.DB.Model(&models.Users{}).Where("username = ?", username).Update("refresh_token", refresh_token).Error; err != nil {
 		helpers.SendError(ctx, http.StatusInternalServerError, "Something went wrong.")
 		return
 	}

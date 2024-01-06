@@ -7,7 +7,7 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	gologger "github.com/kawojue/gin-gologger"
-	"github.com/kawojue/go-auth/db"
+	"github.com/kawojue/go-auth/configs"
 	"github.com/kawojue/go-auth/routes"
 	initenv "github.com/kawojue/go-initenv"
 )
@@ -16,7 +16,7 @@ func init() {
 	gin.SetMode(gin.ReleaseMode)
 
 	initenv.LoadEnv()
-	db.ConnectDB()
+	configs.ConnectDB()
 }
 
 func main() {
