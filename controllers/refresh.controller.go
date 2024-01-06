@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -11,14 +12,16 @@ import (
 	"github.com/kawojue/go-initenv"
 )
 
-var secretKey []byte = []byte(initenv.GetEnv("JWT_SECRET", ""))
-
 func RefreshToken(ctx *gin.Context) {
+	secretKey := []byte(initenv.GetEnv("JWT_SECRET", ""))
+
 	refresh_token, err := ctx.Cookie("refresh_token")
 	if err != nil {
 		helpers.SendError(ctx, http.StatusUnauthorized, "Access denied.")
 		return
 	}
+
+	fmt.Println(secretKey)
 
 	token, err := jwt.ParseWithClaims(refresh_token, &structs.Claims{}, func(t *jwt.Token) (interface{}, error) {
 		return secretKey, nil
@@ -53,5 +56,5 @@ func RefreshToken(ctx *gin.Context) {
 
 	ctx.SetCookie("access_token", access_token, int(time.Until(access_token_exp).Seconds()), "/", "localhost", false, true)
 
-	helpers.SendSuccess(ctx, http.StatusOK, "Access token generated.", nil)
+	helpers.SendSuccess(ctx, http.StatusOK, "New access token generated.", nil)
 }
