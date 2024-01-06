@@ -14,8 +14,8 @@ import (
 )
 
 func GenTokens(ctx *gin.Context, username string, id string) {
-	access_token_exp := time.Now().Add(1 * time.Hour)
-	refresh_token_exp := time.Now().Add(120 * 24 * time.Hour)
+	access_token_exp := time.Now().Add(2 * time.Hour).UTC()
+	refresh_token_exp := time.Now().Add(120 * 24 * time.Hour).UTC()
 
 	access_token_claims := &structs.Claims{
 		ID:       id,

@@ -38,7 +38,7 @@ func RefreshToken(ctx *gin.Context) {
 		return
 	}
 
-	access_token_exp := time.Now().Add(1 * time.Hour)
+	access_token_exp := time.Now().Add(2 * time.Hour).UTC()
 	access_token_claims := &structs.Claims{
 		ID:       claims.ID,
 		Username: claims.Username,
