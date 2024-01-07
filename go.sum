@@ -58,8 +58,8 @@ github.com/json-iterator/go v1.1.12 h1:PV8peI4a0ysnczrg+LtxykD8LfKY9ML6u2jnxaEnr
 github.com/json-iterator/go v1.1.12/go.mod h1:e30LSqwooZae/UwlEbR2852Gd8hjQvJoHmT4TnhNGBo=
 github.com/kawojue/gin-gologger v1.0.0 h1:xCBDAnpMhaAdIBc5c249o55Y+uhRMjozSPTr3pXw1KQ=
 github.com/kawojue/gin-gologger v1.0.0/go.mod h1:DQwqZOjpJGsRbTayt3MzT82AFimGKXMmG/veYba3n5o=
-github.com/kawojue/gin-ratelimiter v1.0.0 h1:cQ1tIxquQf+LiKwJiNUOYXvsV5BQjBCXIrNW+Gg/mj4=
-github.com/kawojue/gin-ratelimiter v1.0.0/go.mod h1:rwC4KF7jdzPjw5vOir7ZJaO7AfvI+zaR5YK9g4GS8fc=
+github.com/kawojue/gin-ratelimiter v1.1.0 h1:r4BIfFbrlXTmXXIJCMmjt4i+5p6jNe11NFyElot5Oyg=
+github.com/kawojue/gin-ratelimiter v1.1.0/go.mod h1:rwC4KF7jdzPjw5vOir7ZJaO7AfvI+zaR5YK9g4GS8fc=
 github.com/kawojue/go-bcrypt v1.0.0 h1:lkZV5vLSbAujDNVlnmSbAecTv3fUlJYzpfwHSTrDT78=
 github.com/kawojue/go-bcrypt v1.0.0/go.mod h1:PAwhBnK3z+icpPli63n1wbHR9VnJNRU8Nm688M8oLtA=
 github.com/kawojue/go-initenv v1.0.0 h1:2UACvnlGgq+L50iM9uOwhXkbZJDafuxH1CaSs/iAQr0=
