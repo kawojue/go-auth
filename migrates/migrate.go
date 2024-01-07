@@ -12,6 +12,7 @@ func init() {
 }
 
 func main() {
-	configs.DB.AutoMigrate(&models.Users{})
-	configs.DB.AutoMigrate(&models.TOTP{})
+	if err := configs.DB.AutoMigrate(&models.Users{}, &models.TOTP{}, &models.Profiles{}, &models.Avatars{}); err != nil {
+		panic(err)
+	}
 }
