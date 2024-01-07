@@ -5,8 +5,10 @@ import (
 	"github.com/kawojue/go-auth/controllers"
 )
 
-func AuthRoutes(router *gin.Engine) {
-	auth := router.Group("/auth")
+var auth *gin.RouterGroup
+
+func AuthRoutes(router *gin.RouterGroup) {
+	auth = router.Group("/auth")
 	{
 		auth.POST("/signup", controllers.SignUp)
 		auth.POST("/login", controllers.Login)
