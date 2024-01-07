@@ -8,7 +8,7 @@ require (
 	github.com/gin-gonic/gin v1.9.1
 	github.com/google/uuid v1.5.0
 	github.com/kawojue/gin-gologger v1.0.0
-	github.com/kawojue/gin-ratelimiter v1.0.0
+	github.com/kawojue/gin-ratelimiter v1.1.0
 	github.com/kawojue/go-bcrypt v1.0.0
 	github.com/kawojue/go-initenv v1.0.0
 	gorm.io/driver/postgres v1.5.4
