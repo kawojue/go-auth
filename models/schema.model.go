@@ -14,15 +14,16 @@ type Users struct {
 	CreatedAt    time.Time `gorm:"default:CURRENT_TIMESTAMP"`
 	UpdatedAt    time.Time `gorm:"autoUpdateTime"`
 	RefreshToken string
-	TOTP         TOTP `gorm:"foreignKey:UserID"`
-	Info         Info `gorm:"foreignKey:UserID"`
+	TOTP         TOTP     `gorm:"foreignKey:UserID"`
+	Profile      Profiles `gorm:"foreignKey:UserID"`
 }
 
-type Info struct {
-	ID        uuid.UUID `gorm:"primaryKey;type:uuid;default:uuid_generator_v4()"`
+type Profiles struct {
+	ID        uuid.UUID `gorm:"primaryKey;type:uuid;default:uuid_generate_v4()"`
 	FirstName string
 	LastName  string
 	Age       int
+	Avatar    Avatars   `gorm:"foreignKey:UserID"`
 	UserID    uuid.UUID `gorm:"type:uuid;uniqueIndex"`
 }
 
@@ -31,4 +32,12 @@ type TOTP struct {
 	Otp       string
 	OtpExpiry string
 	UserID    uuid.UUID `gorm:"type:uuid;uniqueIndex"`
+}
+
+type Avatars struct {
+	ID     uuid.UUID `gorm:"primaryKey;type:uuid;default:uuid_generate_v4()"`
+	Url    string
+	Path   string
+	Type   string
+	UserId uuid.UUID `gorm:"type:uuid;uniqueIndex"`
 }
