@@ -39,6 +39,7 @@ func main() {
 	})
 
 	routes.AuthRoutes(router.Group("/"))
+	routes.PasswordRoutes(router.Group("/auth"))
 
 	router.Run(fmt.Sprintf(":%s", PORT))
 }
