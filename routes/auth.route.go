@@ -27,5 +27,6 @@ func AuthRoutes(router *gin.RouterGroup) {
 		)
 		auth.POST("/logout", controllers.Logout)
 		auth.POST("/refresh", controllers.RefreshToken)
+		auth.POST("/req-otp", controllers.ForgotPassword)
 	}
 }
