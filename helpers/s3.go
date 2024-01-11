@@ -29,10 +29,7 @@ func UploadS3(ctx *gin.Context, filePath string, fileBytes []byte) {
 	_, err := s3Client.PutObject(params)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{
-			"success": false,
-			"error":   "Error uploading file",
-		})
+		SendError(ctx, http.StatusInternalServerError, "Error uploading file")
 		return
 	}
 }
@@ -50,10 +47,7 @@ func DeleteS3(ctx *gin.Context, path string) {
 	_, err := s3Client.DeleteObject(params)
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{
-			"success": false,
-			"error":   "Error deleting file",
-		})
+		SendError(ctx, http.StatusInternalServerError, "Error deleting file")
 		return
 	}
 }
