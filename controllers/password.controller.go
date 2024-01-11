@@ -24,13 +24,13 @@ func ForgotPassword(ctx *gin.Context) {
 	)
 
 	if err = ctx.ShouldBindJSON(&body); err != nil {
-		helpers.SendError(ctx, http.StatusInternalServerError, "Invalid JSON.")
+		helpers.INVALID_JSON(ctx)
 		return
 	}
 
 	email := strings.ToLower(strings.TrimSpace(body.Email))
 	if err = configs.DB.Where("email = ?", email).First(&user).Error; err != nil {
-		helpers.SendError(ctx, http.StatusNotFound, "Account not found.")
+		helpers.ACCOUNT_NOT_FOUND(ctx)
 		return
 	}
 
@@ -43,7 +43,7 @@ func ForgotPassword(ctx *gin.Context) {
 			UserID:    user.ID,
 		}
 		if err = configs.DB.Create(&totpRecord).Error; err != nil {
-			helpers.SendError(ctx, http.StatusInternalServerError, "Failed to save OTP in the database.")
+			helpers.FAILED_TO_SAVE_OTP(ctx)
 			return
 		}
 	} else {
@@ -67,7 +67,7 @@ func ForgotPassword(ctx *gin.Context) {
 			Otp:       totp.Otp,
 			OtpExpiry: totp.Otp_Expiry,
 		}).Error; err != nil {
-			helpers.SendError(ctx, http.StatusInternalServerError, "Failed to save OTP in the database.")
+			helpers.FAILED_TO_SAVE_OTP(ctx)
 			return
 		}
 	}
@@ -86,14 +86,14 @@ func ResetPasword(ctx *gin.Context) {
 	)
 
 	if err = ctx.ShouldBindJSON(&body); err != nil {
-		helpers.SendError(ctx, http.StatusInternalServerError, "Invalid JSON.")
+		helpers.INVALID_JSON(ctx)
 		return
 	}
 
 	otp, pswd, pswd2 := body.Otp, body.Pswd, body.Pswd2
 
 	if otp == "" || pswd == "" || pswd2 == "" {
-		helpers.SendError(ctx, http.StatusBadRequest, "All fields are required.")
+		helpers.ALL_FIELDS_REQUIRED(ctx)
 		return
 	}
 
@@ -116,7 +116,7 @@ func ResetPasword(ctx *gin.Context) {
 
 	parsedOTPExp, err := time.Parse("2006-01-02T15:04:05.999Z", otp_expiry)
 	if err != nil {
-		helpers.SendError(ctx, http.StatusBadRequest, "Something went wrong.")
+		helpers.SOMETHING_WENT_WRONG(ctx)
 		return
 	}
 
@@ -128,7 +128,7 @@ func ResetPasword(ctx *gin.Context) {
 	}
 
 	if err = configs.DB.Where("id = ?", existingTotp.UserID.String()).First(&user).Error; err != nil {
-		helpers.SendError(ctx, http.StatusNotFound, "Account not found.")
+		helpers.ACCOUNT_NOT_FOUND(ctx)
 		return
 	}
 
@@ -144,7 +144,7 @@ func ResetPasword(ctx *gin.Context) {
 		"OtpExpiry": "",
 	}
 	if err = configs.DB.Model(&existingTotp).Where("user_id = ?", user.ID.String()).Updates(updatedTOTP).Error; err != nil {
-		helpers.SendError(ctx, http.StatusInternalServerError, "Something went wrong.")
+		helpers.SOMETHING_WENT_WRONG(ctx)
 		return
 	}
 
