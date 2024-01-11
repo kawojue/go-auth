@@ -72,6 +72,8 @@ github.com/kawojue/gin-ratelimiter v1.1.0 h1:r4BIfFbrlXTmXXIJCMmjt4i+5p6jNe11NFy
 github.com/kawojue/gin-ratelimiter v1.1.0/go.mod h1:rwC4KF7jdzPjw5vOir7ZJaO7AfvI+zaR5YK9g4GS8fc=
 github.com/kawojue/go-bcrypt v1.0.0 h1:lkZV5vLSbAujDNVlnmSbAecTv3fUlJYzpfwHSTrDT78=
 github.com/kawojue/go-bcrypt v1.0.0/go.mod h1:PAwhBnK3z+icpPli63n1wbHR9VnJNRU8Nm688M8oLtA=
+github.com/kawojue/go-hexbyte v1.0.0 h1:o6kXiGBCVo67VOYJNQ6IMqE3xXeWLWnEtw5n/OiDj4U=
+github.com/kawojue/go-hexbyte v1.0.0/go.mod h1:c0u1FX8wbi8aRHLZND66W3uVFm+E+rtpJGlGvbtsMYU=
 github.com/kawojue/go-initenv v1.0.0 h1:2UACvnlGgq+L50iM9uOwhXkbZJDafuxH1CaSs/iAQr0=
 github.com/kawojue/go-initenv v1.0.0/go.mod h1:NPAhOOt+1XWLZP726nUumoJ0cKMAQx53kHDF8zSY6vs=
 github.com/klauspost/cpuid/v2 v2.0.9/go.mod h1:FInQzS24/EEf25PyTYn52gqo7WaD8xa0213Md/qVLRg=
