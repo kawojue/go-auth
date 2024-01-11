@@ -22,7 +22,7 @@ func SignUp(ctx *gin.Context) {
 	)
 
 	if err = ctx.ShouldBindJSON(&body); err != nil {
-		helpers.SendError(ctx, http.StatusBadRequest, "Invalid request body.")
+		helpers.INVALID_JSON(ctx)
 		return
 	}
 
@@ -31,7 +31,7 @@ func SignUp(ctx *gin.Context) {
 	username := strings.ToLower(strings.TrimSpace(body.Username))
 
 	if len(password) == 0 || len(email) == 0 || len(username) == 0 {
-		helpers.SendError(ctx, http.StatusBadRequest, "All fields are required.")
+		helpers.ALL_FIELDS_REQUIRED(ctx)
 		return
 	}
 
@@ -84,14 +84,14 @@ func Login(ctx *gin.Context) {
 	)
 
 	if err = ctx.ShouldBindJSON(&body); err != nil {
-		helpers.SendError(ctx, http.StatusBadRequest, "Invalid request body.")
+		helpers.INVALID_JSON(ctx)
 		return
 	}
 
 	var userId string = strings.ToLower(strings.TrimSpace(body.UserId))
 
 	if len(body.Password) == 0 || len(userId) == 0 {
-		helpers.SendError(ctx, http.StatusBadRequest, "All fields are required.")
+		helpers.ALL_FIELDS_REQUIRED(ctx)
 		return
 	}
 
