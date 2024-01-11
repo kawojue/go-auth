@@ -1,7 +1,6 @@
 package middlewares
 
 import (
-	"net/http"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -17,7 +16,7 @@ func VerifyAuth() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		access_token, err := ctx.Cookie("access_token")
 		if err != nil {
-			helpers.SendError(ctx, http.StatusUnauthorized, "Access denied.")
+			helpers.UNAUTHORIZED_ACESS_DENIED(ctx)
 			return
 		}
 
@@ -28,13 +27,13 @@ func VerifyAuth() gin.HandlerFunc {
 			})
 
 		if err != nil {
-			helpers.SendError(ctx, http.StatusUnauthorized, "Access denied.")
+			helpers.UNAUTHORIZED_ACESS_DENIED(ctx)
 			return
 		}
 
 		claims, ok := token.Claims.(*structs.Claims)
 		if !ok || !token.Valid || time.Now().Unix() > claims.ExpiresAt {
-			helpers.SendError(ctx, http.StatusForbidden, "Access denied.")
+			helpers.FORBIDDEN_ACESS_DENIED(ctx)
 			return
 		}
 
