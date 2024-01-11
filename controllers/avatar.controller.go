@@ -26,6 +26,8 @@ func UploadAvatar(ctx *gin.Context) {
 		return
 	}
 
+	// file, handler, err := ctx.Request.FormFile("avatar")
+
 }
 
 func DeleteAvatar(ctx *gin.Context) {
