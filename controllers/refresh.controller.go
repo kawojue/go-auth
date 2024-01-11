@@ -17,7 +17,7 @@ func RefreshToken(ctx *gin.Context) {
 
 	refresh_token, err := ctx.Cookie("refresh_token")
 	if err != nil {
-		helpers.SendError(ctx, http.StatusUnauthorized, "Access denied.")
+		helpers.UNAUTHORIZED_ACESS_DENIED(ctx)
 		return
 	}
 
@@ -28,13 +28,13 @@ func RefreshToken(ctx *gin.Context) {
 	})
 
 	if err != nil {
-		helpers.SendError(ctx, http.StatusForbidden, "Access denied.")
+		helpers.FORBIDDEN_ACESS_DENIED(ctx)
 		return
 	}
 
 	claims, ok := token.Claims.(*structs.Claims)
 	if !ok || !token.Valid || time.Now().Unix() > claims.ExpiresAt {
-		helpers.SendError(ctx, http.StatusForbidden, "Access denied.")
+		helpers.FORBIDDEN_ACESS_DENIED(ctx)
 		return
 	}
 
