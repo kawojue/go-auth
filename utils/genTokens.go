@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"net/http"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -35,19 +34,19 @@ func GenTokens(ctx *gin.Context, username string, id string) {
 	new_access_token_claims := jwt.NewWithClaims(jwt.SigningMethodHS256, access_token_claims)
 	access_token, err := new_access_token_claims.SignedString([]byte(initenv.GetEnv("JWT_SECRET", "")))
 	if err != nil {
-		helpers.SendError(ctx, http.StatusInternalServerError, "Something went wrong.")
+		helpers.SOMETHING_WENT_WRONG(ctx)
 		return
 	}
 
 	new_refresh_token_claims := jwt.NewWithClaims(jwt.SigningMethodHS256, refresh_token_claims)
 	refresh_token, err := new_refresh_token_claims.SignedString([]byte(initenv.GetEnv("JWT_SECRET", "")))
 	if err != nil {
-		helpers.SendError(ctx, http.StatusInternalServerError, "Something went wrong.")
+		helpers.SOMETHING_WENT_WRONG(ctx)
 		return
 	}
 
 	if err := configs.DB.Model(&models.Users{}).Where("username = ?", username).Update("refresh_token", refresh_token).Error; err != nil {
-		helpers.SendError(ctx, http.StatusInternalServerError, "Something went wrong.")
+		helpers.SOMETHING_WENT_WRONG(ctx)
 		return
 	}
 
