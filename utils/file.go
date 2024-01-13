@@ -16,17 +16,17 @@ import (
 func HandleFile(
 	ctx *gin.Context,
 	maxSize int64,
-	handler *multipart.FileHeader,
+	header *multipart.FileHeader,
 	file multipart.File,
 	allowedExtensions ...string,
 ) (*structs.File, error) {
 	isAllowedExt := false
-	if maxSize < handler.Size {
-		helpers.SendError(ctx, http.StatusRequestEntityTooLarge, fmt.Sprintf("%s too large", handler.Filename))
-		return nil, fmt.Errorf("%s too large", handler.Filename)
+	if maxSize < header.Size {
+		helpers.SendError(ctx, http.StatusRequestEntityTooLarge, fmt.Sprintf("%s too large", header.Filename))
+		return nil, fmt.Errorf("%s too large", header.Filename)
 	}
 
-	fileExtension := filepath.Ext(handler.Filename)
+	fileExtension := filepath.Ext(header.Filename)
 
 	for _, ext := range allowedExtensions {
 		if ext == fileExtension {
@@ -49,7 +49,7 @@ func HandleFile(
 	}
 
 	return &structs.File{
-		FileName:  fileName,
 		FileBytes: fileBytes,
+		FileName:  fileName + "." + fileExtension,
 	}, nil
 }
