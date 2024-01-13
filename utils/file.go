@@ -49,7 +49,8 @@ func HandleFile(
 	}
 
 	return &structs.File{
-		FileBytes: fileBytes,
-		FileName:  fileName + "." + fileExtension,
+		FileBytes:     fileBytes,
+		FileName:      fileName + "." + fileExtension,
+		FileExtension: fileExtension,
 	}, nil
 }
