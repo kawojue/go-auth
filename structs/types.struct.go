@@ -6,6 +6,7 @@ type TOTP struct {
 }
 
 type File struct {
-	FileBytes []byte
-	FileName  string
+	FileBytes     []byte
+	FileName      string
+	FileExtension string
 }
