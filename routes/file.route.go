@@ -14,9 +14,7 @@ func FileRoutes(router *gin.RouterGroup) {
 		file.POST(
 			"/avatar",
 			middlewares.VerifyAuth(),
-			middlewares.LimitRequestBodySize(5<<20),
 			controllers.UploadAvatar,
 		)
-
 	}
 }
