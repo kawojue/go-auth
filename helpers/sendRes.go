@@ -30,7 +30,7 @@ var ACCOUNT_NOT_FOUND = func(ctx *gin.Context) {
 }
 
 var INVALID_JSON = func(ctx *gin.Context) {
-	SendError(ctx, http.StatusInternalServerError, "Invalid JSON")
+	SendError(ctx, http.StatusInternalServerError, "Error binding Data")
 }
 
 var FAILED_TO_SAVE_OTP = func(ctx *gin.Context) {
