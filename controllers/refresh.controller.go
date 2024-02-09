@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 	"time"
 
@@ -20,8 +19,6 @@ func RefreshToken(ctx *gin.Context) {
 		helpers.UNAUTHORIZED_ACESS_DENIED(ctx)
 		return
 	}
-
-	fmt.Println(secretKey)
 
 	token, err := jwt.ParseWithClaims(refresh_token, &structs.Claims{}, func(t *jwt.Token) (interface{}, error) {
 		return secretKey, nil
