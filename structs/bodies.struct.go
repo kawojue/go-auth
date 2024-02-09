@@ -1,5 +1,7 @@
 package structs
 
+import "mime/multipart"
+
 type ForgotPassword struct {
 	Email string `json:"email"`
 }
@@ -19,4 +21,8 @@ type SignUp struct {
 type Login struct {
 	UserId   string `json:"userId"`
 	Password string `json:"password"`
+}
+
+type AvatarForm struct {
+	Avatar *multipart.FileHeader `json:"avatar"`
 }
