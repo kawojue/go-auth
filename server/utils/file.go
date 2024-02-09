@@ -21,6 +21,7 @@ func HandleFile(
 	allowedExtensions ...string,
 ) (*structs.File, error) {
 	isAllowedExt := false
+	fmt.Println(header)
 	if maxSize < header.Size {
 		helpers.SendError(ctx, http.StatusRequestEntityTooLarge, fmt.Sprintf("%s too large", header.Filename))
 		return nil, fmt.Errorf("%s too large", header.Filename)

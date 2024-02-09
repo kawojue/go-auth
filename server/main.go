@@ -22,7 +22,7 @@ func init() {
 func main() {
 	router := gin.Default()
 
-	router.MaxMultipartMemory = 10 << 20
+	router.MaxMultipartMemory = 7 << 20
 
 	PORT := initenv.GetEnv("PORT", "8080")
 
