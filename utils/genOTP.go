@@ -15,11 +15,7 @@ func GenOTP(length int) structs.TOTP {
 		otp += string(digits[rand.Intn(len(digits))])
 	}
 
-	otp_expiry := time.Now().Add(
-		30 * time.Minute,
-	).UTC().Format(
-		"2006-01-02T15:04:05.999Z",
-	)
+	otp_expiry := time.Now().Add(30 * time.Minute).UTC().Format("2006-01-02T15:04:05.999Z")
 
 	return structs.TOTP{
 		Otp:        otp,
