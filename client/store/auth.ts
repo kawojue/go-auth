@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-const initialUserStore: User = {
+const initialUserStore = {
     otp: '',
     email: '',
     userId: '',
@@ -9,9 +9,10 @@ const initialUserStore: User = {
     username: '',
     password2: '',
     loading: false,
-}
+} as User
 
 export const userStore = create<UserAuthStates>()((set) => ({
     user: initialUserStore,
-    setUser: (user) => set({ user })
+    setUser: (user) => set({ user }),
+    resetState: () => set({ user: initialUserStore }),
 }))

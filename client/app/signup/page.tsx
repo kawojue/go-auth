@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label'
 const page = () => {
     const { user, setUser } = userStore()
 
-    const handleOnchage = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
 
         setUser({
@@ -38,7 +38,7 @@ const page = () => {
                                 type='email'
                                 name='email'
                                 placeholder='example@mail.com'
-                                onChange={handleOnchage}
+                                onChange={handleOnChange}
                             />
                         </div>
                         <div>
@@ -49,7 +49,7 @@ const page = () => {
                                 id='password'
                                 type='password'
                                 placeholder='******'
-                                onChange={handleOnchage}
+                                onChange={handleOnChange}
                             />
                         </div>
                         <div>
@@ -60,7 +60,7 @@ const page = () => {
                                 type='password'
                                 name='password2'
                                 placeholder='Your password again'
-                                onChange={handleOnchage}
+                                onChange={handleOnChange}
                             />
                         </div>
                     </article>
