@@ -1,5 +1,4 @@
 import { isProd } from '@/utils/prod'
-import getCookie from '@/utils/getCookie'
 import axios, { AxiosInstance } from 'axios'
 
 const BASE_URL = isProd ? '' : 'http://localhost:3030'
@@ -12,7 +11,6 @@ const axiosInstance: AxiosInstance = axios.create({
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${getCookie('access_token')}`
     }
 })
 
