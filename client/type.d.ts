@@ -1,3 +1,5 @@
+type NotificationAction = 'error' | 'success'
+
 interface User {
     otp: string
     email: string
