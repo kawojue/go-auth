@@ -26,13 +26,14 @@ func main() {
 
 	PORT := initenv.GetEnv("PORT", "8080")
 
+	router.Use(gologger.Logger(gin.ReleaseMode))
+
 	router.Use(cors.New(cors.Config{
 		AllowCredentials: true,
-		AllowOrigins:     []string{"*"},
-		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
+		AllowOrigins:     []string{"http://localhost:3000"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "PATCH"},
+		AllowHeaders:     cors.DefaultConfig().AllowHeaders,
 	}))
-
-	router.Use(gologger.Logger(gin.ReleaseMode))
 
 	router.GET("/", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
