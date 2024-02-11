@@ -17,13 +17,10 @@ const axiosInstance: AxiosInstance = axios.create({
 })
 
 axiosInstance.interceptors.response.use(
-    (response) => {
-        return response
-    },
+    (response) => response,
     async (error) => {
-        if (error.response.status === 401) {
+        if (error.response && error.response.status === 401) {
             const req = error.config
-
             if (!isRef) {
                 isRef = true
                 try {
