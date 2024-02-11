@@ -1,6 +1,7 @@
 "use client"
 
-import Link from "next/link"
+import Link from 'next/link'
+import router from 'next/router'
 import { ChangeEvent } from 'react'
 import { axios } from '@/app/api/axios'
 import {
@@ -8,14 +9,15 @@ import {
     CardFooter, CardHeader, CardTitle,
 } from '@/components/ui/card'
 import { userStore } from '@/store/auth'
-import throwError from "@/utils/throwError"
+import throwError from '@/utils/throwError'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
-import { AxiosError, AxiosResponse } from "axios"
+import { AxiosError, AxiosResponse } from 'axios'
 
 const page = () => {
     const { user, setUser } = userStore()
+
 
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
@@ -28,11 +30,10 @@ const page = () => {
 
     const handleSignup = async () => {
         await axios.post(
-            '/auth/signup',
-            {
-                ...user
-            }
-        ).then((res: AxiosResponse) => {
+            '/auth/signup', {
+            ...user
+        }).then((res: AxiosResponse) => {
+            router.push('/login')
             console.log(res)
         }).catch((err: AxiosError) => throwError(err))
     }
