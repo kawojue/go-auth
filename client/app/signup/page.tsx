@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import router from 'next/router'
 import { ChangeEvent } from 'react'
+import notify from '@/utils/notify'
 import { axios } from '@/app/api/axios'
 import {
     Card, CardContent, CardDescription,
@@ -18,10 +19,8 @@ import { AxiosError, AxiosResponse } from 'axios'
 const page = () => {
     const { user, setUser } = userStore()
 
-
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
-
         setUser({
             ...user,
             [name]: value
@@ -34,7 +33,7 @@ const page = () => {
             ...user
         }).then((res: AxiosResponse) => {
             router.push('/login')
-            console.log(res)
+            notify(res.data?.message, 'success')
         }).catch((err: AxiosError) => throwError(err))
     }
 
