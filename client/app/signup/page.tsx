@@ -28,13 +28,7 @@ const page = () => {
     }
 
     const handleSignup = async () => {
-        await axios.post(
-            '/auth/signup', {
-            ...user
-        }).then((res: AxiosResponse) => {
-            router.push('/login')
-            notify(res.data?.message, 'success')
-        }).catch((err: AxiosError) => throwError(err))
+
     }
 
     return (
@@ -96,7 +90,13 @@ const page = () => {
                         </div>
                     </article>
                     <div className='w-full flex mt-2 justify-end'>
-                        <Button onClick={async () => await handleSignup()}>
+                        <Button onClick={async () => await axios.post(
+                            '/auth/signup', {
+                            ...user
+                        }).then((res: AxiosResponse) => {
+                            router.push('/login')
+                            notify(res.data?.message, 'success')
+                        }).catch((err: AxiosError) => throwError(err))}>
                             Sign up
                         </Button>
                     </div>
