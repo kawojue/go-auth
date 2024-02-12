@@ -121,7 +121,9 @@ func Login(ctx *gin.Context) {
 
 	utils.GenTokens(ctx, user.Username, user.ID.String())
 
-	helpers.SendSuccess(ctx, http.StatusOK, "Login successful.", nil)
+	helpers.SendSuccess(ctx, http.StatusOK, "Login successful.", map[string]string{
+		"username": user.Username,
+	})
 }
 
 func clearCookies(ctx *gin.Context, cookieNames []string) {

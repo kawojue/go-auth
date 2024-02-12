@@ -51,5 +51,4 @@ func GenTokens(ctx *gin.Context, username string, id string) {
 	}
 
 	ctx.SetCookie("access_token", access_token, int(time.Until(access_token_exp).Seconds()), "/", "localhost", false, true)
-	ctx.SetCookie("refresh_token", refresh_token, int(time.Until(refresh_token_exp).Seconds()), "/", "localhost", false, true)
 }
