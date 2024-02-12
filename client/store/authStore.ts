@@ -9,6 +9,7 @@ const initialUserStore = {
     username: '',
     password2: '',
     loading: false,
+    btnLoading: false,
 } as User
 
 export const userStore = create<UserAuthStates>()((set) => ({
