@@ -13,9 +13,10 @@ type ResetPassword struct {
 }
 
 type SignUp struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
-	Username string `json:"username"`
+	Email     string `json:"email"`
+	Password  string `json:"password"`
+	Password2 string `json:"password2"`
+	Username  string `json:"username"`
 }
 
 type Login struct {

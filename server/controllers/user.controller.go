@@ -27,11 +27,17 @@ func SignUp(ctx *gin.Context) {
 	}
 
 	password := body.Password
+	password2 := body.Password2
 	email := strings.TrimSpace(body.Email)
 	username := strings.ToLower(strings.TrimSpace(body.Username))
 
 	if len(password) == 0 || len(email) == 0 || len(username) == 0 {
 		helpers.ALL_FIELDS_REQUIRED(ctx)
+		return
+	}
+
+	if password != password2 {
+		helpers.SendError(ctx, http.StatusBadRequest, "Passwords not match")
 		return
 	}
 
