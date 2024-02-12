@@ -8,11 +8,11 @@ import {
     Card, CardContent, CardDescription,
     CardFooter, CardHeader, CardTitle,
 } from '@/components/ui/card'
-import { userStore } from '@/store/auth'
 import { useRouter } from 'next/navigation'
 import throwError from '@/utils/throwError'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { userStore } from '@/store/authStore'
 import { Button } from '@/components/ui/button'
 import { AxiosError, AxiosResponse } from 'axios'
 

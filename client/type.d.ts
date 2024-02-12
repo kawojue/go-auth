@@ -9,10 +9,17 @@ interface User {
     username: string
     password2: string
     loading: boolean
+    btnLoading: boolean
 }
 
 interface UserAuthStates {
     user: User
     setUser: (user: User) => void
     resetState: () => void
+}
+
+interface Params {
+    params: {
+        username: string
+    }
 }
