@@ -1,7 +1,6 @@
 "use client"
 
 import Link from 'next/link'
-import router from 'next/router'
 import notify from '@/utils/notify'
 import { axios } from '@/app/api/axios'
 import {
@@ -9,6 +8,7 @@ import {
     CardFooter, CardHeader, CardTitle,
 } from '@/components/ui/card'
 import { userStore } from '@/store/auth'
+import { useRouter } from 'next/navigation'
 import throwError from '@/utils/throwError'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -17,7 +17,8 @@ import { Button } from '@/components/ui/button'
 import { AxiosError, AxiosResponse } from 'axios'
 
 const page = () => {
-    const { user, setUser } = userStore()
+    const router = useRouter()
+    const { user, setUser, resetState } = userStore()
 
     const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
@@ -28,11 +29,13 @@ const page = () => {
     }
 
     useEffect(() => {
+        const userId = localStorage.getItem("username") || ''
         setUser({
             ...user,
-            userId: localStorage.getItem("username") || ''
+            userId,
+            username: userId,
         })
-    }, [])
+    }, [user.username])
 
     return (
         <form
@@ -41,7 +44,7 @@ const page = () => {
             <Card>
                 <CardHeader>
                     <CardTitle>Login</CardTitle>
-                    <CardDescription>{`${user.username ? `Welcome back, ${user.username}.` : 'Welcome'}`}</CardDescription>
+                    <CardDescription>{`${user.username ? `Welcome, ${user.username}.` : 'Welcome'}`}</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <article className='flex flex-col gap-3'>
@@ -72,9 +75,14 @@ const page = () => {
                         <Button onClick={async () => await axios.post(
                             '/auth/login', {
                             ...user
-                        }).then((res: AxiosResponse) => {
-                            router.push(`/${user.username}`)
-                            notify(res.data?.message, 'success')
+                        }).then(({ data }: AxiosResponse) => {
+                            notify(data?.message, 'success')
+                            const username = data?.data?.username
+                            localStorage.setItem("username", username)
+                            resetState()
+                            setTimeout(() => {
+                                router.push(`/${username}`)
+                            }, 300)
                         }).catch((err: AxiosError) => throwError(err))}>
                             Login
                         </Button>
