@@ -27,10 +27,6 @@ const page = () => {
         })
     }
 
-    const handleSignup = async () => {
-
-    }
-
     return (
         <form
             onSubmit={e => e.preventDefault()}
