@@ -37,7 +37,7 @@ const page = () => {
                     <CardDescription>Get Started</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <article className='flex flex-col gap-2.5'>
+                    <article className='flex flex-col gap-3'>
                         <div className="flex justify-between items-center">
                             <div>
                                 <Label htmlFor='email' className='text-lg'>Email</Label>
@@ -56,7 +56,7 @@ const page = () => {
                                     id='username'
                                     type='username'
                                     name='username'
-                                    placeholder='kawojue'
+                                    placeholder='johndoe'
                                     value={user.username}
                                     onChange={handleOnChange}
                                 />
@@ -92,6 +92,7 @@ const page = () => {
                         }).then((res: AxiosResponse) => {
                             router.push('/login')
                             notify(res.data?.message, 'success')
+                            localStorage.setItem("username", user.username)
                         }).catch((err: AxiosError) => throwError(err))}>
                             Sign up
                         </Button>
