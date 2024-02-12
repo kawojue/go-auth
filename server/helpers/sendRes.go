@@ -6,18 +6,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SendSuccess(ctx *gin.Context, statusCode int, msg string, data interface{}) {
+func SendSuccess(ctx *gin.Context, statusCode int, message string, data interface{}) {
 	ctx.JSON(statusCode, gin.H{
-		"msg":     msg,
 		"success": true,
 		"data":    data,
+		"message": message,
 	})
 }
 
-func SendError(ctx *gin.Context, statusCode int, msg string) {
+func SendError(ctx *gin.Context, statusCode int, message string) {
 	ctx.JSON(statusCode, gin.H{
 		"success": false,
-		"error":   msg,
+		"error":   message,
 	})
 }
 
