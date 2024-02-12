@@ -77,7 +77,7 @@ const page = () => {
                             ...user
                         }).then(({ data }: AxiosResponse) => {
                             notify(data?.message, 'success')
-                            const username = data?.data?.username
+                            const username = data.data?.username
                             localStorage.setItem("username", username)
                             resetState()
                             setTimeout(() => {
