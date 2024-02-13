@@ -24,3 +24,14 @@ interface Params {
         username: string
     }
 }
+
+type LoadingType = 'blank' | 'balls' | 'bars' | 'bubbles' | 'cubes' | 'cylon' | 'spin' | 'spinningBubbles' | 'spokes'
+
+interface LoadingProps {
+    type?: LoadingType
+    color?: string
+    className?: string
+    delay?: number
+    width?: string
+    height?: string
+}
