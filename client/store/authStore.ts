@@ -3,6 +3,7 @@ import { create } from 'zustand'
 const initialUserStore = {
     otp: '',
     email: '',
+    token: '',
     userId: '',
     avatar: null,
     password: '',
