@@ -3,11 +3,11 @@
 import Link from 'next/link'
 import { ChangeEvent } from 'react'
 import notify from '@/utils/notify'
-import { axios } from '@/app/api/axios'
 import {
     Card, CardContent, CardDescription,
     CardFooter, CardHeader, CardTitle,
 } from '@/components/ui/card'
+import { axiosReq } from '@/app/api/axios'
 import { useRouter } from 'next/navigation'
 import throwError from '@/utils/throwError'
 import { Input } from '@/components/ui/input'
@@ -87,7 +87,7 @@ const page = () => {
                         </div>
                     </article>
                     <div className='w-full flex mt-2 justify-end'>
-                        <Button onClick={async () => await axios.post(
+                        <Button onClick={async () => await axiosReq.post(
                             '/auth/signup', {
                             ...user
                         }).then((res: AxiosResponse) => {

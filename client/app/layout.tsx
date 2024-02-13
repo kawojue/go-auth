@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Toaster } from 'react-hot-toast'
 import QueryProvider from '@/components/QueryProvider'
+import { TokenProvider } from '@/components/TokenProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,7 +24,9 @@ export default function RootLayout({
           position="top-center"
           reverseOrder={false} />
         <QueryProvider>
-          {children}
+          <TokenProvider>
+            {children}
+          </TokenProvider>
         </QueryProvider>
       </body>
     </html>
