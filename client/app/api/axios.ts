@@ -43,9 +43,10 @@ axiosInstance.interceptors.response.use(
 
 export const axiosReq: AxiosInstance = axios.create({
     baseURL: BASE_URL,
+    withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
-    }
+    },
 })
 
 export { axiosInstance as axios }
