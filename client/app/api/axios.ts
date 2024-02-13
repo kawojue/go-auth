@@ -5,6 +5,7 @@ const BASE_URL = isProd ? '' : 'http://localhost:3030'
 
 let refSubs = []
 let isRef = false
+let isTokenRefreshFailed = false
 
 const axiosInstance: AxiosInstance = axios.create({
     baseURL: BASE_URL,
@@ -13,6 +14,14 @@ const axiosInstance: AxiosInstance = axios.create({
         'Content-Type': 'application/json'
     }
 })
+
+export const setTokenRefreshFailure = () => {
+    isTokenRefreshFailed = true
+}
+
+export const resetTokenRefreshFailure = () => {
+    isTokenRefreshFailed = false
+}
 
 axiosInstance.interceptors.response.use(
     (response) => response,
@@ -23,8 +32,11 @@ axiosInstance.interceptors.response.use(
                 isRef = true
                 try {
                     await axios.post('/auth/refresh')
+                    resetTokenRefreshFailure()
                     return axios(req)
                 } catch (err) {
+                    refSubs = []
+                    setTokenRefreshFailure()
                     return Promise.reject(err)
                 } finally {
                     isRef = false
