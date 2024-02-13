@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	gologger "github.com/kawojue/gin-gologger"
 	"github.com/kawojue/go-auth/configs"
+	"github.com/kawojue/go-auth/controllers"
 	"github.com/kawojue/go-auth/routes"
 	initenv "github.com/kawojue/go-initenv"
 )
@@ -44,6 +45,7 @@ func main() {
 	routes.AuthRoutes(router.Group("/"))
 	routes.FileRoutes(router.Group("/"))
 	routes.PasswordRoutes(router.Group("/auth"))
+	router.GET("/:username", controllers.GetUser)
 
 	router.Run(fmt.Sprintf(":%s", PORT))
 }
