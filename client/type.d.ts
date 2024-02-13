@@ -3,6 +3,7 @@ type NotificationAction = 'error' | 'success'
 interface User {
     otp: string
     email: string
+    token: string
     userId: string
     avatar: string | null
     password: string
