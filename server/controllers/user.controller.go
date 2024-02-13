@@ -3,7 +3,9 @@ package controllers
 import (
 	"net/http"
 	"strings"
+	"time"
 
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"github.com/kawojue/go-auth/configs"
 	"github.com/kawojue/go-auth/helpers"
@@ -11,6 +13,7 @@ import (
 	"github.com/kawojue/go-auth/structs"
 	"github.com/kawojue/go-auth/utils"
 	gobcrypt "github.com/kawojue/go-bcrypt"
+	"github.com/kawojue/go-initenv"
 	"gorm.io/gorm"
 )
 
@@ -148,4 +151,60 @@ func Logout(ctx *gin.Context) {
 	}
 
 	clearCookies(ctx, cookieNames)
+}
+
+func GetUser(ctx *gin.Context) {
+	var (
+		err             error
+		username        string
+		user            models.Users
+		isAuthenticated bool = false
+		data            map[string]interface{}
+	)
+	secretKey := []byte(initenv.GetEnv("JWT_SECRET", ""))
+	access_token, _ := ctx.Cookie("access_token")
+	usernameParam := ctx.Param("username")
+
+	isValid, usernameAuth := validateToken(access_token, secretKey)
+
+	if isValid && usernameAuth == usernameParam {
+		username = usernameAuth
+		isAuthenticated = true
+	} else {
+		username = usernameParam
+	}
+
+	if err = configs.DB.Where("username = ?", username).First(&user).Preload("Profiles").Error; err != nil {
+		helpers.ACCOUNT_NOT_FOUND(ctx)
+		return
+	}
+
+	if isAuthenticated {
+		data = map[string]interface{}{
+			"user": user,
+		}
+	} else {
+		data = map[string]interface{}{
+			"username": user.Username,
+		}
+	}
+
+	helpers.SendSuccess(ctx, http.StatusOK, "", data)
+}
+
+func validateToken(tokenString string, secretKey []byte) (bool, string) {
+	token, err := jwt.ParseWithClaims(tokenString, &structs.Claims{}, func(t *jwt.Token) (interface{}, error) {
+		return secretKey, nil
+	})
+
+	if err != nil {
+		return false, ""
+	}
+
+	claims, ok := token.Claims.(*structs.Claims)
+	if !ok || !token.Valid || time.Now().Unix() > claims.ExpiresAt {
+		return false, ""
+	}
+
+	return true, claims.Username
 }
